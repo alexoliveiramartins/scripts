@@ -11,10 +11,13 @@ yt-dlp \
     $1 -o "$out/temp.mp4" \
     -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
 
+crop=$(ffmpeg -i $out/temp.mp4 -vf cropdetect -f null - 2>&1 | grep "crop=" | tail -n 1 | sed -E 's/.*crop=([0-9:]+).*/\1/')
+echo "Crop detected: $crop"
+
 echo "converting to gif..."
 ffmpeg \
     -i "$out/temp.mp4" \
-    -vf "fps=15,scale=360:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
+    -vf "fps=15,crop=$crop,scale=480:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=128:stats_mode=diff[p];[s1][p]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle" \
     "$out/$4.gif"
 
 echo "removing temp file: $out/temp.mp4..."
