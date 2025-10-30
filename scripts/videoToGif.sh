@@ -20,3 +20,5 @@ ffmpeg \
 echo "removing temp file: $out/temp.mp4..."
 rm "$out/temp.mp4"
 
+# Requisites: ffmpeg, yt-dlp
+# Usage: ./videoToGif.sh [YT_VIDEO_ID] [START_SECONDS] [END_SECONDS] [OUTPUT_GIF_NAME]
