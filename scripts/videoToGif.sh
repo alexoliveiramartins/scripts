@@ -28,5 +28,7 @@ echo "[videoToGif.sh] $out/$4.gif created sucessfully"
 FILESIZE=$(( $(stat -c%s "$out/$4.gif") / 1000000))
 echo "[videoToGif.sh] Size: $FILESIZE MB / Aspect Ratio: 4:3 / fps: 15"
 
+xdg-open "$out/$4.gif"
+
 # Requisites: ffmpeg, yt-dlp
 # Usage: ./videoToGif.sh [YT_VIDEO_ID] [START_SECONDS] [END_SECONDS] [OUTPUT_GIF_NAME]
