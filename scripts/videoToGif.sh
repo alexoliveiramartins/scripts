@@ -16,7 +16,7 @@ echo "Crop detected: $crop"
 
 echo "[videoToGif.sh] Converting to gif..."
 ffmpeg \
-    -i "$out/temp.mp4" \
+    -i "$out/temp.mp4" -y \
     -aspect 4:3 \
     -vf "fps=15,crop=$crop,scale=480:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=128:stats_mode=diff[p];[s1][p]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle" \
     "$out/$4.gif"
